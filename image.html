@@ -1,0 +1,89 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Image</title>
+</head>
+<body>
+
+  <input type="file" id="imageUpload" accept="image/*">
+  <script>
+    // Function to handle image selection and transfer to the index.html page
+    document.getElementById('imageUpload').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        const imageDataURL = event.target.result;
+        // Send the image data URL to the index.html page
+        window.opener.postMessage({ imageDataURL: imageDataURL }, '*');
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>-->
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Selection</title>
+</head>
+<body>
+
+  <img src="/Users/salahelghazzani/Desktop/stamp.jpg" onclick="transferImageDataURL('/Users/salahelghazzani/Desktop/stamp.jpg')">
+  <img src="/Users/salahelghazzani/Desktop/product_design-3.png" onclick="transferImageDataURL('/Users/salahelghazzani/Desktop/product_design-3.png')">
+
+  <script>
+    // Function to transfer the image data URL to index.html
+    function transferImageDataURL(imagePath) {
+      const image = new Image();
+      image.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        ctx.drawImage(image, 0, 0);
+
+        const imageDataURL = canvas.toDataURL('image/png');
+        window.opener.postMessage({ imageDataURL: imageDataURL }, '*');
+        window.close();
+      };
+      image.src = imagePath;
+    }
+  </script>
+</body>
+</html>-->
+
+<!------------------------------------------------------------------------------------------------>
+
+ <input type="number" id="inputValue" oninput="calculateAndDisplayResult()">
+<button id="toggleButton" onclick="toggleFunction()">Toggle Function</button>
+<p id="outputResult"></p>
+
+
+<script>
+
+function toggleFunction() {
+  isFunctionActive = !isFunctionActive;
+}
+
+function calculateAndDisplayResult() {
+  const inputValue = parseFloat(document.getElementById("inputValue").value);
+  const outputElement = document.getElementById("outputResult");
+
+  if (isFunctionActive) {
+    const result = inputValue * 2;
+    outputElement.textContent = `Result: ${result}`;
+  } else {
+    outputElement.textContent = "Function is currently turned off.";
+  }
+}
+
+// Attach the calculateAndDisplayResult function to the input event of the input element
+document.getElementById("inputValue").addEventListener("input", calculateAndDisplayResult);
+
+
+</script>

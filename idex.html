@@ -1,0 +1,119 @@
+<!---<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas Image Upload</title>
+</head>
+<body>
+
+  <canvas id="productCanvas" width="400" height="300"></canvas>
+
+  <button onclick="downloadCanvasImage()">Download Canvas</button>
+  
+  <button onclick="openImageUploader()">Upload Image</button>
+
+  <script>
+    // Function to handle messages from the image.html page
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.imageDataURL) {
+        // Draw the uploaded image on the canvas
+        showImageOnCanvas(event.data.imageDataURL);
+      }
+    });
+
+    // Function to draw the image on the canvas
+    function showImageOnCanvas(imageDataURL) {
+      const canvas = document.getElementById('productCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Clear the canvas before drawing the image
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Create a new image element and load the selected image
+      const image = new Image();
+      image.onload = function() {
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      };
+      image.src = imageDataURL;
+    }
+
+    // Function to download the canvas content with the image
+    function downloadCanvasImage() {
+      const canvas = document.getElementById('productCanvas');
+      const dataURL = canvas.toDataURL('image/png');
+
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = 'product_image.png';
+
+      // Trigger a click event on the link to initiate the download
+      link.click();
+    }
+
+    // Function to open the image.html page for image selection
+    function openImageUploader() {
+      window.open('image.html', '_blank');
+    }
+  </script>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas Image Upload</title>
+</head>
+<body>
+  <!-- Add a canvas element to draw the images on -->
+  <canvas id="productCanvas" width="400" height="300"></canvas>
+  <!-- Add a button to trigger the download -->
+  <button onclick="downloadCanvasImage()">Download Canvas</button>
+  <!-- Add a button to open the image.html page for image selection -->
+  <button onclick="openImageUploader()">Upload Image</button>
+
+  <script>
+    // Function to handle messages from the image.html page
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.imageDataURL) {
+        // Draw the uploaded image on the canvas
+        showImageOnCanvas(event.data.imageDataURL);
+      }
+    });
+
+    // Function to draw the image on the canvas
+    function showImageOnCanvas(imageDataURL) {
+      const canvas = document.getElementById('productCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Clear the canvas before drawing the image
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Create a new image element and load the selected image
+      const image = new Image();
+      image.onload = function() {
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      };
+      image.src = imageDataURL;
+    }
+
+    // Function to download the canvas content with the image
+    function downloadCanvasImage() {
+      const canvas = document.getElementById('productCanvas');
+      const dataURL = canvas.toDataURL('image/png');
+
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = 'product_image.png';
+
+      // Trigger a click event on the link to initiate the download
+      link.click();
+    }
+
+    // Function to open the image.html page for image selection
+    function openImageUploader() {
+      window.open('image.html', '_blank');
+    }
+  </script>
+</body>
+</html>
