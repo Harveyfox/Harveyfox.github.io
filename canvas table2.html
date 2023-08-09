@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -493,7 +493,6 @@
     
     
     
-    <!--------------------------------------------------------------------------------------------------------------------------------------->
     <style>
         #canvasContainer {
             position: relative;
@@ -511,8 +510,7 @@
     
    
     
-    <!--------------------------------------------------------------------------------------------------------------------------------------->
-    
+   
     
     
     
@@ -618,7 +616,649 @@
 </section>
             
         </head>
-        <body>    
+        <body>   
+
+
+
+   <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+            </head>
+            <body>
+                
+            </body>
+            </html>
+            
+            
+            <canvas id="productCanvas" width="400" height="400" style="border: 1px solid black;"></canvas>
+            <br><label id="togo">Canvas Adjusting:</label><input type="number" id="canvasWidthInput" placeholder="Width" onchange="resizeCanvas()">
+              <input type="number" id="canvasHeightInput" placeholder="Height" onchange="resizeCanvas()">
+         
+            <table>
+                <tr>
+                
+                  <th> <button id="butt" onclick="undo()">Back</button>...................<button id="butt"  onclick="clearCanvas()">Clear Canvas</button>
+                    ......................<button id="butt"  onclick="downloadCanvasImage()">Download Product</button>
+                    </th>
+                    <th></th>
+                   <th></th>
+                  <th></th>
+                </tr>
+                <tr>
+                    
+            
+            </td>
+                  <td>  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td> <br><label id="gogo">Text:</label><input type="text" id="textInput" placeholder="Type text here" style="width: 4cm; height: 1.5cm;">---------> <button onclick="addText()" style="background-color: chartreuse;">Add Text</button>
+              </td></tr>
+
+
+                <tr>
+               <td> <label id="gogo">Font Size:</label>
+                    <input type="range" id="fontSizeInput" step="2" min="12" max="40" value="20">
+                    <label id="gogo">Text Color:</label>
+                    <input type="color" id="textColorPicker" value="#000000">
+                    <br><br>
+                    <label id="dogo">Curve Text:</label>
+                    <input type="checkbox" id="curveText" onclick="toggleCurveText()">
+                    <br>
+                    <label id="dogo">Curve Radius:</label>
+                    <input type="range" id="curveRadiusInput" step="10" min="10" max="200" value="10" onchange="updateCurveRadius()">
+                    <br>
+                    <label id="dogo">Word Spacing for Curved Text:</label>
+                    <input type="range" id="curveWordSpacingInput" step="1" min="0" max="100" value="5" onchange="updateCurveWordSpacing()">
+                   
+                 </td>
+                
+                  <td></td>
+                </tr>
+                <tr>
+            
+                    <td>   <select id="imageSelection" onchange="" style="display: none;" >
+                        <option value="">Select an image</option>
+                        <option value="/Users/salahelghazzani/Desktop/STAMP/2.jpg" >image1</option>
+                         <option value="/Users/salahelghazzani/Desktop/stamp.jpg">Image 2</option>
+                        <option value="stamp X/4.jpg" >image1</option>
+                         <option value="stamp X/5.jpg">Image 2</option>
+                         <option value="sstamp X/6.png" >image1</option>
+                         <option value="stamp X/1691028215127.png">Image 2</option>
+                         <option value="stamp X/1691028606251.png" >image1</option>
+                         <option value="stamp X/1691028893195.png">Image 2</option>
+                         <option value="stamp X/1691029509873.png" >image1</option>
+                         <option value="stamp X/1691029636810.png">Image 2</option>
+                         <option value="stamp X/1691029729113.png" >image1</option>
+                         <option value="stamp X/1691029812578.png">Image 2</option>
+                         <option value="stamp X/1691030329218.png" >image1</option>
+                         <option value="stamp X/1691072462007.png">Image 2</option>
+                 </select>
+                 
+                    <div class="dropdown-arrow">&#9660;</div>
+                    <div class="dropdown-list" onclick="event.stopPropagation()">
+                
+                        <input type="checkbox" id="checkbox-a" onchange="toggleRowVisibility()">
+                        <div id="firstRow" style="display: none;">
+                        <img id="image1" src="/Users/salahelghazzani/Desktop/STAMP/2.jpg" alt="Image 1"width="50" height="50" alt="Image 2" onclick="selectImage('/Users/salahelghazzani/Desktop/STAMP/2.jpg')">
+                        <img id="image2" src="/Users/salahelghazzani/Desktop/stamp.jpg" alt="Image 2"width="50" height="50" alt="Image 1" onclick="selectImage('/Users/salahelghazzani/Desktop/stamp.jpg')">
+                    </div>
+                   
+                
+                    <input type="checkbox" id="checkbox-b" onchange="toggleRowVisibility()">
+                    <div id="secondRow" style="display: none;"> 
+                            <img id="image3" src="stamp X/4.jpg" alt="Image 1"width="50" height="50" alt="Image 2"  onclick="selectImage('stamp X/4.jpg')">
+                            <img id="image14" src="stamp X/5.jpg" alt="Image 2"width="50" height="50" alt="Image 1" onclick="selectImage('stamp X/5.jpg')">
+                            <img id="image13" src="stamp X/6.png" alt="Image 1"width="50" height="50" alt="Image 2"  onclick="selectImage('stamp X/6.png')">
+                            <img id="image4" src="stamp X/1691028215127.png" alt="Image 2"width="50" height="50" alt="Image 1" onclick="selectImage('stamp X/1691028215127.png')">
+                            <img id="image5" src="stamp X/1691028606251.png" alt="Image 1"width="50" height="50" alt="Image 2"  onclick="selectImage('stamp X/1691028606251.png')">
+                            <img id="image6" src="stamp X/1691028893195.png" alt="Image 2"width="50" height="50" alt="Image 1" onclick="selectImage('stamp X/1691028893195.png')">
+                            <img id="image7" src="stamp X/1691029509873.png" alt="Image 2"width="50" height="50" alt="Image 1" onclick="selectImage('stamp X/1691029509873.png')">
+                            <img id="image8" src="stamp X/1691029636810.png" alt="Image 1"width="50" height="50" alt="Image 2"  onclick="selectImage('stamp X/1691029636810.png')">
+                            <img id="image9" src="stamp X/1691029729113.png" alt="Image 2"width="50" height="50" alt="Image 1" onclick="selectImage('stamp X/1691029729113.png')">
+                            <img id="image10" src="stamp X/1691029812578.png" alt="Image 2"width="50" height="50" alt="Image 1" onclick="selectImage('stamp X/1691029812578.png')">
+                            <img id="image11" src="stamp X/1691030329218.png" alt="Image 1"width="50" height="50" alt="Image 2"  onclick="selectImage('stamp X/1691030329218.png')">
+                            <img id="image12" src="stamp X/1691072462007.png" alt="Image 2"width="50" height="50" alt="Image 1" onclick="selectImage('stamp X/1691072462007.png')">
+                       </div>
+                
+                    </td>
+                </tr>
+                </table>
+            <style>
+#gogo{
+    color: brown;
+}
+#dogo{
+    color: blue;
+}
+#togo{
+    color: rgb(255, 102, 0);
+}
+#butt{
+    background-color: rgb(226, 217, 43);
+}
+            </style>
+            
+            
+            <script>
+            
+                
+                function toggleRowVisibility() {
+                      var checkboxA = document.getElementById('checkbox-a');
+                      var firstRow = document.getElementById('first-row');
+                      var checkboxB = document.getElementById('checkbox-b');
+                      var   secondRow = document.getElementById('second-row');
+                
+                      if (checkboxA.checked) {
+                        document.getElementById("firstRow").style.display = 'block';} else { document.getElementById("firstRow").style.display = 'none';}
+                
+                      if (checkboxB.checked) {
+                        document.getElementById("secondRow").style.display = 'block';} else {document.getElementById("secondRow").style.display = 'none';}
+                      }
+                
+                
+                function addText() {
+                    const textInput = document.getElementById("textInput");
+                    const text = textInput.value;
+                    if (text.trim() !== "") {
+                        const x = 50; // Customize the position as needed
+                        const y = 50; // Customize the position as needed
+                        const fontSize = parseInt(document.getElementById("fontSizeInput").value, 10); // Get font size from input
+                        const fontFamily = "Arial"; // Customize the font family as needed
+                        const color = document.getElementById("textColorPicker").value; // Get text color from color picker
+                        const bgColor = document.getElementById("textBgColorPicker").value; // Get text background color from color picker
+                
+                        texts.push({ text, x, y, fontSize, fontFamily, color, bgColor, curve: curveText });
+                        redrawCanvas();
+                    }
+                }
+                
+                function redrawCanvas() {
+                    const canvas = document.getElementById("productCanvas");
+                    const context = canvas.getContext("2d");
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                
+                    texts.forEach((textData) => {
+                        context.font = `${textData.fontSize}px ${textData.fontFamily}`;
+                        context.fillStyle = textData.color;
+                        if (textData.curve) {
+                            // ... existing code for curved text ...
+                        } else {
+                            context.fillStyle = textData.bgColor; // Set the text background color
+                            context.fillText(textData.text, textData.x, textData.y);
+                        }
+                    });
+                }
+                
+              
+                
+                
+                
+                
+                
+                
+                
+                </script>
+                
+                
+                <script>
+                
+                
+                    // Function to download the canvas content with images
+                    function downloadCanvasImage() {
+                      const canvas = document.getElementById('productCanvas');
+                
+                      // Create an anchor element
+                      const anchor = document.createElement('a');
+                
+                      // Set the download attribute to give the file a name
+                      anchor.download = 'product_image.png';
+                
+                      // Convert the canvas content to a data URL
+                      const dataURL = canvas.toDataURL();
+                
+                      // Set the href of the anchor to the data URL
+                      anchor.href = dataURL;
+                
+                      // Trigger a click event on the anchor to initiate the download
+                      anchor.click();
+                    }
+                    function addText() {
+                            const textInput = document.getElementById("textInput");
+                            const text = textInput.value;
+                            if (text.trim() !== "") {
+                                const x = 50; // Customize the position as needed
+                                const y = 50; // Customize the position as needed
+                                const fontSize = parseInt(document.getElementById("fontSizeInput").value, 10); // Get font size from input
+                                const fontFamily = "Arial"; // Customize the font family as needed
+                                const color = document.getElementById("textColorPicker").value; // Get text color from color picker
+                
+                                texts.push({ text, x, y, fontSize, fontFamily, color, curve: curveText });
+                                saveState();
+                                redrawCanvas();
+                            }
+                        }
+                
+                
+                        function redrawCanvas() {
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                            // Draw images
+                            images.forEach((image) => {
+                                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                            });
+                
+                            // Draw text
+                            texts.forEach((textData) => {
+                                if (textData.curve) {
+                                    drawCurvedText(textData);
+                                } else {
+                                    drawRegularText(textData);
+                                }
+                            });
+                        }
+                 
+                  </script>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <script>
+                
+                
+                 
+                
+                function uploadImageDesktop(fileInput) {
+                  const fileName = fileInput.files[STAMP].name;
+                  if (fileName !== 'imagedesktop') {
+                    alert('Please select a file named "imagedesktop".');
+                    return;
+                  }
+                
+                  // Add your upload logic here
+                  // For example, you can use FormData and an AJAX request to upload the file to the server.
+                }
+                function saveProduct() {
+                            canvas.toBlob(function(blob) {
+                                const file = new File([blob], "", { type: "" });
+                
+                      
+                                const downloadLink = document.createElement("a");
+                                downloadLink.href = URL.createObjectURL(file);
+                                downloadLink.download = file.name;
+                                downloadLink.click();
+                            });
+                        }
+                        saveState();
+                
+                //function downloadCanvas() {
+                            const dataURL = canvas.toDataURL("");
+                            const downloadLink = document.createElement("a");
+                            downloadLink.href = dataURL;
+                            downloadLink.download = "";
+                            downloadLink.click();
+                        //}
+                 
+                
+                
+                
+                
+                
+                
+                // Add a new function to show image previews in the dropdown
+                function showImagePreviews(){
+                    const imageSelection = document.getElementById("imageSelection");
+                    const options = imageSelection.options;
+                    for (let i = 0; i < options.length; i++) {
+                        const imageUrl = options[i].getAttribute("data-preview");
+                        if (imageUrl) {
+                            const image = new Image();
+                            image.src = imageUrl;
+                            image.width = 50; // Set the desired width for the preview image
+                            image.height = 50; // Set the desired height for the preview image
+                            options[i].prepend(image);
+                        }
+                    }
+                }
+                
+                // Call the showImagePreviews function when the page loads
+                showImagePreviews();
+                
+                // Add a new function to toggle the dropdown list
+                function toggleDropdown() {
+                    const dropdown = document.querySelector(".custom-dropdown");
+                    dropdown.classList.toggle("open");
+                }
+                
+                // Add a new function to select the image from the dropdown
+                function selectImage(imageUrl) {
+                    const imageSelection = document.getElementById("imageSelection");
+                    imageSelection.value = imageUrl;
+                    displaySelectedImage();
+                    toggleDropdown();
+                }
+                </script>
+                </body>
+                </html>
+                
+                
+                
+                
+                
+                
+                
+                  
+                
+                    <script>
+                
+                
+                
+                               // Function to resize the canvas
+                               function resizeCanvas() {
+                            const canvasWidthInput = document.getElementById("canvasWidthInput");
+                            const canvasHeightInput = document.getElementById("canvasHeightInput");
+                            const width = parseInt(canvasWidthInput.value);
+                            const height = parseInt(canvasHeightInput.value);
+                
+                            if (!isNaN(width) && !isNaN(height) && width > 0 && height > 0) {
+                                canvas.width = width;
+                                canvas.height = height;
+                                redrawCanvas();
+                            }
+                        }
+                     
+                     function displaySelectedImage() {
+                            const imageSelection = document.getElementById("imageSelection");
+                            const selectedImageUrl = imageSelection.value;
+                            if (selectedImageUrl) {
+                                const selectedImage = new Image();
+                                selectedImage.onload = function () {
+                                    images.push(selectedImage);
+                                    saveState();
+                                    redrawCanvas();
+                                };
+                                selectedImage.src = selectedImageUrl;
+                            }
+                        }
+                     const canvas = document.getElementById("productCanvas");
+                        const ctx = canvas.getContext("2d");
+                        const images = [];
+                        const texts = [];
+                        const stateStack = [];
+                        let selectedText = null;
+                        let dragging = false;
+                        let offsetX, offsetY;
+                        let curveText = false;
+                        let curveRadius = 100;
+                   
+                   
+                
+                       
+                
+                        function toggleCurveText() {
+                            curveText = document.getElementById("curveText").checked;
+                            if (curveText) {
+                                curveRadius = parseInt(document.getElementById("curveRadiusInput").value, 10);
+                                document.getElementById("curveRadiusInput").disabled = false;
+                                document.getElementById("curveWordSpacingInput").disabled = false;
+                            } else {
+                                document.getElementById("curveRadiusInput").disabled = true;
+                                document.getElementById("curveWordSpacingInput").disabled = true;
+                            }
+                            redrawCanvas();
+                        }
+                
+                        function updateCurveRadius() {
+                            curveRadius = parseInt(document.getElementById("curveRadiusInput").value, 10);
+                            redrawCanvas();
+                        }
+                
+                        function updateCurveWordSpacing() {
+                            const curveWordSpacing = parseInt(document.getElementById("curveWordSpacingInput").value, 10);
+                            texts.forEach((textData) => {
+                                if (textData.curve) {
+                                    textData.curveWordSpacing = curveWordSpacing;
+                                }
+                            });
+                            redrawCanvas();
+                        }
+                
+                        function saveState() {
+                            stateStack.push({
+                                images: images.map(img => new Image().src = img.src),
+                                texts: texts.map(text => ({ ...text }))
+                            });
+                        }
+                
+                        function saveState() {
+                    const imagesCopy = images.map(img => {
+                        const imageCopy = new Image();
+                        imageCopy.src = img.src;
+                        return imageCopy;
+                    });
+                    stateStack.push({
+                        images: imagesCopy,
+                        texts: texts.map(text => ({ ...text }))
+                    });
+                }
+                
+                function undo() {
+                    if (stateStack.length > 1) {
+                        stateStack.pop();
+                        const previousState = stateStack[stateStack.length - 1];
+                        images.length = 0;
+                        texts.length = 0;
+                
+                        previousState.images.forEach(img => images.push(img));
+                        previousState.texts.forEach(textData => texts.push({ ...textData }));
+                
+                        redrawCanvas();
+                    }
+                }
+                function addImage() {
+                            const imageUpload = document.getElementById("imageUpload");
+                            const imageUpload1 = document.getElementById("imageUpload")
+                            const file = imageUpload.files[0];
+                            if (file) {
+                                const image = new Image();
+                                image.src = URL.createObjectURL(file);
+                                image.onload = function () {
+                                    images.push(image);
+                                    saveState();
+                                    redrawCanvas();
+                                };
+                            }
+                        }
+                
+                      
+                
+                    
+                        function drawRegularText(textData) {
+                            ctx.font = `${textData.fontSize}px ${textData.fontFamily}`;
+                            ctx.fillStyle = textData.color;
+                            ctx.fillText(textData.text, textData.x, textData.y);
+                        }
+                
+                        function drawCurvedText(textData) {
+                            const centerX = textData.x;
+                            const centerY = textData.y;
+                            const angleOffset = -Math.PI / 2; // Start angle at the top
+                
+                            ctx.save();
+                            ctx.fillStyle = textData.color;
+                            ctx.font = `${textData.fontSize}px ${textData.fontFamily}`;
+                
+                            const curveWordSpacing = textData.curveWordSpacing || 0; // Include word spacing for curved text, default to 0 if not set
+                
+                            for (let i = 0; i < textData.text.length; i++) {
+                                const char = textData.text[i];
+                                const angle = angleOffset + (i / textData.text.length) * Math.PI * 2;
+                
+                                const x = centerX + curveRadius * Math.cos(angle);
+                                const y = centerY + curveRadius * Math.sin(angle);
+                
+                                ctx.save();
+                                ctx.translate(x, y);
+                                ctx.rotate(angle + Math.PI / 2);
+                                ctx.fillText(char, curveWordSpacing, 0); // Add word spacing for curved text
+                                ctx.restore();
+                            }
+                
+                            ctx.restore();
+                        }
+                
+                        function clearCanvas() {
+                            images.length = 0;
+                            texts.length = 0;
+                            saveState();
+                            redrawCanvas();
+                        }
+                
+                     
+                      
+                 </script>
+                
+                
+                
+                <!--------------------------------------------------------------------------------------------------------------------------------------->
+                <style>
+                    #canvasContainer {
+                        position: relative;
+                        width: 400px; /* Set the desired width for the canvas */
+                        height: 400px; /* Set the desired height for the canvas */
+                        overflow: hidden;
+                    }
+                
+                    #productCanvas {
+                        position: relative;
+                     
+                        border: 1px solid black;
+                    }
+                </style>
+                
+               
+                
+                <!--------------------------------------------------------------------------------------------------------------------------------------->
+                
+                
+                
+                
+                
+                    
+                </body>
+                </html>
+                
+                
+                 <script>
+                
+                
+                
+                let isDragging = false;
+                let startX, startY;
+                let draggedTextIndex = -1;
+                
+                canvas.addEventListener("mousedown", (event) => {
+                isDragging = true;
+                startX = event.clientX;
+                startY = event.clientY;
+                
+                // Check if the cursor is on a text element
+                for (let i = 0; i < texts.length; i++) {
+                const textData = texts[i];
+                const textWidth = ctx.measureText(textData.text).width;
+                if (
+                    startX >= textData.x &&
+                    startX <= textData.x + textWidth &&
+                    startY >= textData.y - textData.fontSize &&
+                    startY <= textData.y
+                ) {
+                    draggedTextIndex = i;
+                    break;
+                }
+                }
+                });
+                
+                canvas.addEventListener("touchstart", (event) => {
+                event.preventDefault();
+                const touch = event.touches[0];
+                isDragging = true;
+                startX = touch.clientX;
+                startY = touch.clientY;
+                
+                // Check if the cursor is on a text element
+                for (let i = 0; i < texts.length; i++) {
+                const textData = texts[i];
+                const textWidth = ctx.measureText(textData.text).width;
+                if (
+                    startX >= textData.x &&
+                    startX <= textData.x + textWidth &&
+                    startY >= textData.y - textData.fontSize &&
+                    startY <= textData.y
+                ) {
+                    draggedTextIndex = i;
+                    break;
+                }
+                }
+                });
+                
+                canvas.addEventListener("mousemove", (event) => {
+                if (isDragging && draggedTextIndex !== -1) {
+                const dx = event.clientX - startX;
+                const dy = event.clientY - startY;
+                texts[draggedTextIndex].x += dx;
+                texts[draggedTextIndex].y += dy;
+                startX = event.clientX;
+                startY = event.clientY;
+                redrawCanvas();
+                }
+                });
+                
+                canvas.addEventListener("touchmove", (event) => {
+                if (isDragging && draggedTextIndex !== -1) {
+                event.preventDefault();
+                const touch = event.touches[0];
+                const dx = touch.clientX - startX;
+                const dy = touch.clientY - startY;
+                texts[draggedTextIndex].x += dx;
+                texts[draggedTextIndex].y += dy;
+                startX = touch.clientX;
+                startY = touch.clientY;
+                redrawCanvas();
+                }
+                });
+                
+                canvas.addEventListener("mouseup", () => {
+                isDragging = false;
+                draggedTextIndex = -1;
+                });
+                
+                canvas.addEventListener("touchend", () => {
+                isDragging = false;
+                draggedTextIndex = -1;
+                });
+            
+                
+                // ... (rest of your code)
+            </script>
+            
+            
+            </section>
+                        
+                    </head>
+                    <body>    
+                    
+                    
         
         
         
