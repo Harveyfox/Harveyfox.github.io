@@ -117,3 +117,266 @@
   </script>
 </body>
 </html>
+
+<!------------------------------------------------------------------------------------------>
+<!DOCTYPE html>
+ <html>
+ <head>
+     <title>Image Canvas</title>
+     <style>
+       
+     </style>
+ </head>
+ <body>
+     <div id="canvasContainer">
+         <img id="image1" class="canvasImage" src="" alt="Image 1">
+         <img id="image2" class="canvasImage" src="" alt="Image 2">
+     </div>
+     <input type="file" id="uploadImage1">
+     <input type="file" id="uploadImage2">
+     <br>
+     Image 1 Size: <input type="number" id="image1Size" value="100"> %
+     Image 2 Size: <input type="number" id="image2Size" value="100"> %
+ 
+     <script>
+         const image1 = document.getElementById('image1');
+         const image2 = document.getElementById('image2');
+         const uploadImage1 = document.getElementById('uploadImage1');
+         const uploadImage2 = document.getElementById('uploadImage2');
+         const image1Size = document.getElementById('image1Size');
+         const image2Size = document.getElementById('image2Size');
+         
+ 
+
+        
+        let dragging = false;
+        let dragImage = null;
+
+        image1.addEventListener('mousedown', startDrag);
+        image2.addEventListener('mousedown', startDrag);
+
+        function startDrag(event) {
+            dragging = true;
+            dragImage = event.target;
+            dragImage.style.zIndex = '1000';
+        }
+
+        document.addEventListener('mousemove', moveImage);
+        document.addEventListener('mouseup', stopDrag);
+
+        function moveImage(event) {
+            if (dragging) {
+                const canvasContainer = document.getElementById('canvasContainer');
+                const x = event.clientX - canvasContainer.offsetLeft;
+                const y = event.clientY - canvasContainer.offsetTop;
+                dragImage.style.left = `${x}px`;
+                dragImage.style.top = `${y}px`;
+            }
+        }
+
+        function stopDrag() {
+            dragging = false;
+            if (dragImage) {
+                dragImage.style.zIndex = 'auto';
+                dragImage = null;
+            }
+        }
+//===============================================================================
+       
+
+
+
+        image1.addEventListener('mousedown', startDrag);
+        image2.addEventListener('mousedown', startDrag);
+
+        // Touch events for tactile devices
+        image1.addEventListener('touchstart', startDrag);
+        image2.addEventListener('touchstart', startDrag);
+
+        function startDrag(event) {
+            dragging = true;
+            dragImage = event.target;
+            dragImage.style.zIndex = '1000';
+
+            // Check if the event is a touch event
+            if (event.type === 'touchstart') {
+                const touch = event.touches[0];
+                dragStartX = touch.clientX;
+                dragStartY = touch.clientY;
+            } else {
+                dragStartX = event.clientX;
+                dragStartY = event.clientY;
+            }
+        }
+
+        document.addEventListener('mousemove', moveImage);
+        document.addEventListener('mouseup', stopDrag);
+        
+        // Touch move event for tactile devices
+        document.addEventListener('touchmove', moveImage);
+        document.addEventListener('touchend', stopDrag);
+
+        // Rest of the moveImage and stopDrag functions remain unchanged
+
+
+
+
+         // Rest of the code remains unchanged
+         // ...
+     </script>
+ </body>
+ </html>
+
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Image Canvas</title>
+    <style>
+        #canvasContainer {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border: 2px solid black;
+            overflow: hidden;
+        }
+        .canvasImage {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    
+    <script>
+    
+        
+        uploadImage1.addEventListener('change', () => {
+            const file = uploadImage1.files[0];
+            if (file) {
+                image1.src = URL.createObjectURL(file);
+            }
+        });
+        
+        uploadImage2.addEventListener('change', () => {
+            const file = uploadImage2.files[0];
+            if (file) {
+                image2.src = URL.createObjectURL(file);
+            }
+        });
+        
+        image1Size.addEventListener('input', () => {
+            image1.style.width = `${image1Size.value}%`;
+        });
+        
+        image2Size.addEventListener('input', () => {
+            image2.style.width = `${image2Size.value}%`;
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Canvas</title>
+    <style>
+        #canvasContainer {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border: 2px solid black;
+            overflow: hidden;
+        }
+        .canvasImage {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+        <img id="image1" class="canvasImage" src="" alt="Image 1">
+        <img id="image2" class="canvasImage" src="" alt="Image 2">
+    </div>
+    <input type="file" id="uploadImage1">
+    <input type="file" id="uploadImage2">
+    <br>
+    Image 1 Width: <input type="number" id="image1Width" value="100"> px
+    Image 1 Height: <input type="number" id="image1Height" value="100"> px
+    Image 2 Width: <input type="number" id="image2Width" value="100"> px
+    Image 2 Height: <input type="number" id="image2Height" value="100"> px
+
+    <script>
+    
+        const image1Width = document.getElementById('image1Width');
+        const image1Height = document.getElementById('image1Height');
+        const image2Width = document.getElementById('image2Width');
+        const image2Height = document.getElementById('image2Height');
+        
+        // Rest of the drag functionality code remains unchanged
+        // ...
+
+        image1Width.addEventListener('input', updateImageDimensions);
+        image1Height.addEventListener('input', updateImageDimensions);
+        image2Width.addEventListener('input', updateImageDimensions);
+        image2Height.addEventListener('input', updateImageDimensions);
+
+        function updateImageDimensions() {
+            image1.style.width = `${image1Width.value}px`;
+            image1.style.height = `${image1Height.value}px`;
+            image2.style.width = `${image2Width.value}px`;
+            image2.style.height = `${image2Height.value}px`;
+        }
+
+        // Rest of the code remains unchanged
+        // ...
+
+
+   
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Canvas</title>
+   
+</head>
+<body>
+  
+ 
+    22222<button id="downloadButton">Download Canvas</button>
+
+
+
+    <script>
+     
+
+        const downloadButton = document.getElementById('downloadButton');
+        downloadButton.addEventListener('click', downloadCanvas);
+
+        function downloadCanvas() {
+            const canvasContainer = document.getElementById('canvasContainer');
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            canvas.width = canvasContainer.offsetWidth;
+            canvas.height = canvasContainer.offsetHeight;
+
+            // Clear canvas before drawing images
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw images onto the canvas
+            context.drawImage(image1, parseInt(image1.style.left), parseInt(image1.style.top), parseInt(image1.style.width), parseInt(image1.style.height));
+            context.drawImage(image2, parseInt(image2.style.left), parseInt(image2.style.top), parseInt(image2.style.width), parseInt(image2.style.height));
+
+            // Convert the canvas content to a data URL
+            const dataURL = canvas.toDataURL('image/png');
+
+            // Create a link element and trigger the download
+            const downloadLink = document.createElement('a');
+            downloadLink.href = dataURL;
+            downloadLink.download = 'canvas_image.png';
+            downloadLink.click();
+        }
+    </script>
+</body>
+</html>
