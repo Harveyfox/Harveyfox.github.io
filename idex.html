@@ -255,9 +255,46 @@
 <body>
   
  
-    22222<button id="downloadButton">Download Canvas</button>
+    22222<button id="printButton">Download Canvas</button>
 
+<script>
+   const printButton = document.getElementById('printButton');
+    printButton.addEventListener('click', printCanvas);
 
+    function printCanvas() {
+        const canvasContainer = document.getElementById('canvasContainer');
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        canvas.width = canvasContainer.offsetWidth;
+        canvas.height = canvasContainer.offsetHeight;
+
+        // Reference loaded images
+        const image1 = document.getElementById('image1');
+        const image2 = document.getElementById('image2');
+
+        // Draw images onto canvas
+        context.drawImage(image1, parseInt(image1.style.left), parseInt(image1.style.top), parseInt(image1.style.width), parseInt(image1.style.height));
+        context.drawImage(image2, parseInt(image2.style.left), parseInt(image2.style.top), parseInt(image2.style.width), parseInt(image2.style.height));
+
+        // Open print dialog for the canvas
+        canvas.toBlob(blob => {
+            const blobUrl = URL.createObjectURL(blob);
+            const image = new Image();
+            image.src = blobUrl;
+            image.onload = () => {
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write('<html><body>');
+                printWindow.document.write('<img src="' + image.src + '">');
+                printWindow.document.write('</body></html>');
+                printWindow.print();
+                printWindow.close();
+                URL.revokeObjectURL(blobUrl);
+            };
+        }, 'image/png');
+    }
+  
+</script>
 
    <!--- <script>
      
@@ -448,35 +485,4 @@ yRange.addEventListener('input', updateImagePosition);
 </script>
 
 
-  <script>
-
-    const downloadButton = document.getElementById('downloadButton');
-    downloadButton.addEventListener('click', downloadCanvas);
-
-    function downloadCanvas() {
-        const canvasContainer = document.getElementById('canvasContainer');
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-
-        canvas.width = canvasContainer.offsetWidth;
-        canvas.height = canvasContainer.offsetHeight;
-
-        // Reference loaded images
-        const image1 = document.getElementById('image1');
-        const image2 = document.getElementById('image2');
-
-        // Draw images onto canvas
-        context.drawImage(image1, parseInt(image1.style.left), parseInt(image1.style.top), parseInt(image1.style.width), parseInt(image1.style.height));
-        context.drawImage(image2, parseInt(image2.style.left), parseInt(image2.style.top), parseInt(image2.style.width), parseInt(image2.style.height));
-
-        // Convert canvas content to Blob
-        canvas.toBlob(blob => {
-            const blobUrl = URL.createObjectURL(blob);
-            const downloadLink = document.createElement('a');
-            downloadLink.href = blobUrl;
-            downloadLink.download = 'canvas_image.png';
-            downloadLink.click();
-            URL.revokeObjectURL(blobUrl);
-        }, 'image/png');
-    }
-  </script>
+ 
