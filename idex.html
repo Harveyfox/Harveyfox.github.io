@@ -255,9 +255,25 @@
 <body>
   
  
-    22222<button id="printButton">Download Canvas</button>
+  <button id="printButton" onclick="">Print Canvas5555555</button>
+    <button id="downloadButton" onclick="promptScreenshot()">Download Canvas</button>
+ 
+    
 
-<script>
+
+   <--- <script>
+function promptScreenshot() {
+  alert("To take a screenshot:\n\nOn Windows: Use the Print Screen key.\nOn Mac: Use Shift + Command + 4.\nOn Android: Use the Volume Down + Power buttons.\nOn iOS: Use the Side + Volume Up buttons.");
+}
+
+const printButton = document.getElementById('printButton');
+        printButton.addEventListener('click', () => {
+            // Trigger the browser's print functionality
+            window.print();
+        });
+   </script>
+
+<!--<script>
   const printButton = document.getElementById('printButton');
         printButton.addEventListener('click', () => {
             const canvasContainer = document.getElementById('canvasContainer');
@@ -297,7 +313,7 @@
             };
         });
   
-</script>
+</script>-->
 
    <!--- <script>
      
