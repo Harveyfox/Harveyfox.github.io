@@ -258,41 +258,44 @@
     22222<button id="printButton">Download Canvas</button>
 
 <script>
-   const printButton = document.getElementById('printButton');
-    printButton.addEventListener('click', printCanvas);
+  const printButton = document.getElementById('printButton');
+        printButton.addEventListener('click', () => {
+            const canvasContainer = document.getElementById('canvasContainer');
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
 
-    function printCanvas() {
-        const canvasContainer = document.getElementById('canvasContainer');
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
+            canvas.width = canvasContainer.offsetWidth;
+            canvas.height = canvasContainer.offsetHeight;
 
-        canvas.width = canvasContainer.offsetWidth;
-        canvas.height = canvasContainer.offsetHeight;
+            // Reference loaded images
+            const image1 = document.getElementById('image1');
+            const image2 = document.getElementById('image2');
 
-        // Reference loaded images
-        const image1 = document.getElementById('image1');
-        const image2 = document.getElementById('image2');
+            // Draw images onto hidden canvas
+            const hiddenCanvas = document.createElement('canvas');
+            const hiddenContext = hiddenCanvas.getContext('2d');
+            hiddenCanvas.width = canvas.width;
+            hiddenCanvas.height = canvas.height;
 
-        // Draw images onto canvas
-        context.drawImage(image1, parseInt(image1.style.left), parseInt(image1.style.top), parseInt(image1.style.width), parseInt(image1.style.height));
-        context.drawImage(image2, parseInt(image2.style.left), parseInt(image2.style.top), parseInt(image2.style.width), parseInt(image2.style.height));
+            hiddenContext.drawImage(image1, parseInt(image1.style.left), parseInt(image1.style.top), parseInt(image1.style.width), parseInt(image1.style.height));
+            hiddenContext.drawImage(image2, parseInt(image2.style.left), parseInt(image2.style.top), parseInt(image2.style.width), parseInt(image2.style.height));
 
-        // Open print dialog for the canvas
-        canvas.toBlob(blob => {
-            const blobUrl = URL.createObjectURL(blob);
-            const image = new Image();
-            image.src = blobUrl;
-            image.onload = () => {
-                const printWindow = window.open('', '_blank');
-                printWindow.document.write('<html><body>');
-                printWindow.document.write('<img src="' + image.src + '">');
-                printWindow.document.write('</body></html>');
+            // Create an image URL from the hidden canvas content
+            const hiddenCanvasImageUrl = hiddenCanvas.toDataURL('image/png');
+
+            // Create a new window for printing
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><body>');
+            printWindow.document.write('<img src="' + hiddenCanvasImageUrl + '">');
+            printWindow.document.write('</body></html>');
+
+            // Wait for the image to load, then trigger print
+            const img = printWindow.document.querySelector('img');
+            img.onload = () => {
                 printWindow.print();
                 printWindow.close();
-                URL.revokeObjectURL(blobUrl);
             };
-        }, 'image/png');
-    }
+        });
   
 </script>
 
