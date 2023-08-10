@@ -380,3 +380,62 @@
     </script>
 </body>
 </html>
+
+<script>
+  let dragStartX = 0;
+        let dragStartY = 0;
+
+        // Event listeners for touch and mouse events
+        image2.addEventListener('mousedown', startDrag);
+        image2.addEventListener('touchstart', startDrag);
+
+        document.addEventListener('mousemove', moveImage);
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchmove', moveImage);
+        document.addEventListener('touchend', stopDrag);
+
+        function startDrag(event) {
+            event.preventDefault(); // Prevent touch scrolling
+            dragging = true;
+            dragImage = event.target;
+            dragImage.style.zIndex = '1000';
+            
+            // Set initial touch/mouse position
+            const clientX = event.type === 'mousedown' ? event.clientX : event.touches[0].clientX;
+            const clientY = event.type === 'mousedown' ? event.clientY : event.touches[0].clientY;
+            dragStartX = clientX - parseInt(dragImage.style.left);
+            dragStartY = clientY - parseInt(dragImage.style.top);
+        }
+
+        function moveImage(event) {
+            if (dragging) {
+                event.preventDefault(); // Prevent touch scrolling
+                
+                // Calculate new position based on touch/mouse position
+                const clientX = event.type === 'mousemove' ? event.clientX : event.touches[0].clientX;
+                const clientY = event.type === 'mousemove' ? event.clientY : event.touches[0].clientY;
+                const newX = clientX - dragStartX;
+                const newY = clientY - dragStartY;
+
+                // Move the image within canvas bounds
+                const minX = 0;
+                const maxX = canvasWidth - parseInt(image2.style.width);
+                const minY = 0;
+                const maxY = canvasHeight - parseInt(image2.style.height);
+                image2X = Math.max(minX, Math.min(maxX, newX));
+                image2Y = Math.max(minY, Math.min(maxY, newY));
+
+                // Update image position
+                image2.style.left = `${image2X}px`;
+                image2.style.top = `${image2Y}px`;
+            }
+        }
+
+        function stopDrag() {
+            dragging = false;
+            if (dragImage) {
+                dragImage.style.zIndex = 'auto';
+                dragImage = null;
+            }
+        }
+</script>
