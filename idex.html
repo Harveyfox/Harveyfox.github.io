@@ -309,28 +309,7 @@
 
 
 
- <script>
-    // Existing code for image manipulation and input range handlers
-
-
-    const downloadButton = document.getElementById('downloadButton');
-    downloadButton.addEventListener('click', downloadCanvas);
-
-    function downloadCanvas() {
-        const canvasContainer = document.getElementById('canvasContainer');
-
-        // Create a new canvas element to draw onto
-        const canvas = document.createElement('canvas');
-        canvas.width = canvasContainer.offsetWidth;
-        canvas.height = canvasContainer.offsetHeight;
-        const context = canvas.getContext('2d');
-
-        // Get a list of all images within the canvas container
-        const images = canvasContainer.querySelectorAll('img.canvasImage');}
-</script>
-        
- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-
+ 
 
 
 <script>
@@ -467,3 +446,37 @@ function updateImagePosition() {
 xRange.addEventListener('input', updateImagePosition);
 yRange.addEventListener('input', updateImagePosition);
 </script>
+
+
+  <script>
+
+    const downloadButton = document.getElementById('downloadButton');
+    downloadButton.addEventListener('click', downloadCanvas);
+
+    function downloadCanvas() {
+        const canvasContainer = document.getElementById('canvasContainer');
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        canvas.width = canvasContainer.offsetWidth;
+        canvas.height = canvasContainer.offsetHeight;
+
+        // Reference loaded images
+        const image1 = document.getElementById('image1');
+        const image2 = document.getElementById('image2');
+
+        // Draw images onto canvas
+        context.drawImage(image1, parseInt(image1.style.left), parseInt(image1.style.top), parseInt(image1.style.width), parseInt(image1.style.height));
+        context.drawImage(image2, parseInt(image2.style.left), parseInt(image2.style.top), parseInt(image2.style.width), parseInt(image2.style.height));
+
+        // Convert canvas content to Blob
+        canvas.toBlob(blob => {
+            const blobUrl = URL.createObjectURL(blob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = 'canvas_image.png';
+            downloadLink.click();
+            URL.revokeObjectURL(blobUrl);
+        }, 'image/png');
+    }
+  </script>
