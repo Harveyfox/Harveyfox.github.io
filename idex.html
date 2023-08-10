@@ -381,17 +381,25 @@
 </body>
 </html>
 
-<script>
-  let dragStartX = 0;
-        let dragStartY = 0;
+ <script>
+
+
+
+        xRange.addEventListener('input', moveImageX);
+        yRange.addEventListener('input', moveImageY);
+
+        // Drag variables
+       
+        let offsetX = 0;
+        let offsetY = 0;
 
         // Event listeners for touch and mouse events
         image2.addEventListener('mousedown', startDrag);
-        image2.addEventListener('touchstart', startDrag);
+        image2.addEventListener('touchstart', startDrag, { passive: false });
 
         document.addEventListener('mousemove', moveImage);
         document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('touchmove', moveImage);
+        document.addEventListener('touchmove', moveImage, { passive: false });
         document.addEventListener('touchend', stopDrag);
 
         function startDrag(event) {
@@ -399,23 +407,28 @@
             dragging = true;
             dragImage = event.target;
             dragImage.style.zIndex = '1000';
-            
-            // Set initial touch/mouse position
-            const clientX = event.type === 'mousedown' ? event.clientX : event.touches[0].clientX;
-            const clientY = event.type === 'mousedown' ? event.clientY : event.touches[0].clientY;
-            dragStartX = clientX - parseInt(dragImage.style.left);
-            dragStartY = clientY - parseInt(dragImage.style.top);
+
+            const rect = dragImage.getBoundingClientRect();
+            offsetX = event.clientX - rect.left;
+            offsetY = event.clientY - rect.top;
         }
 
         function moveImage(event) {
             if (dragging) {
                 event.preventDefault(); // Prevent touch scrolling
-                
-                // Calculate new position based on touch/mouse position
-                const clientX = event.type === 'mousemove' ? event.clientX : event.touches[0].clientX;
-                const clientY = event.type === 'mousemove' ? event.clientY : event.touches[0].clientY;
-                const newX = clientX - dragStartX;
-                const newY = clientY - dragStartY;
+
+                let clientX, clientY;
+
+                if (event.type === 'mousemove') {
+                    clientX = event.clientX;
+                    clientY = event.clientY;
+                } else if (event.type === 'touchmove') {
+                    clientX = event.touches[0].clientX;
+                    clientY = event.touches[0].clientY;
+                }
+
+                const newX = clientX - offsetX;
+                const newY = clientY - offsetY;
 
                 // Move the image within canvas bounds
                 const minX = 0;
@@ -438,4 +451,6 @@
                 dragImage = null;
             }
         }
-</script>
+
+       
+   </script>
