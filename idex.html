@@ -382,12 +382,66 @@
         let dragging = false;
         let dragImage = null;
 
-        // Rest of the moveImage and stopDrag functions remain unchanged
+   
+        image1.addEventListener('mousedown', startDrag);
+        image2.addEventListener('mousedown', startDrag);
 
+        function startDrag(event) {
+            dragging = true;
+            dragImage = event.target;
+            dragImage.style.zIndex = '1000';
+        }
 
+        document.addEventListener('mousemove', moveImage);
+        document.addEventListener('mouseup', stopDrag);
 
+        function moveImage(event) {
+            if (dragging) {
+                const canvasContainer = document.getElementById('canvasContainer');
+                const x = event.clientX - canvasContainer.offsetLeft;
+                const y = event.clientY - canvasContainer.offsetTop;
+                dragImage.style.left = `${x}px`;
+                dragImage.style.top = `${y}px`;
+            }
+        }
 
-         // Rest of the code remains unchanged
-         // .
+        function stopDrag() {
+            dragging = false;
+            if (dragImage) {
+                dragImage.style.zIndex = 'auto';
+                dragImage = null;
+            }
+        }
+
+         image1.addEventListener('mousedown', startDrag);
+        image2.addEventListener('mousedown', startDrag);
+
+        // Touch events for tactile devices
+        image1.addEventListener('touchstart', startDrag);
+        image2.addEventListener('touchstart', startDrag);
+
+        function startDrag(event) {
+            dragging = true;
+            dragImage = event.target;
+            dragImage.style.zIndex = '1000';
+
+            // Check if the event is a touch event
+            if (event.type === 'touchstart') {
+                const touch = event.touches[0];
+                dragStartX = touch.clientX;
+                dragStartY = touch.clientY;
+            } else {
+                dragStartX = event.clientX;
+                dragStartY = event.clientY;
+            }
+        }
+
+        document.addEventListener('mousemove', moveImage);
+        document.addEventListener('mouseup', stopDrag);
+        
+        // Touch move event for tactile devices
+        document.addEventListener('touchmove', moveImage);
+        document.addEventListener('touchend', stopDrag);
+
        
    </script>
