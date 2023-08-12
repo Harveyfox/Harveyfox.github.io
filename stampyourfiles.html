@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+     <div id="canvasContainer">
+        <img id="image1" class="canvasImage" src="" alt="Image 1">
+        <img id="image2" class="canvasImage" src="" alt="Image 2">
+    </div>
+
+   
+
+
+  
+    <section class="section">
+        <section class="section1" id="draggableTable">
+
+       <div class="tables">  <table >
+            <tr>
+              <th class="th">File </th>
+
+
+             
+              
+            </tr>
+            <tr>
+              <td class="file"><input type="file" id="uploadImage1"></td>
+             </tr>
+            <tr>
+              <td  class="file" >      Width: <input type="range" id="image1Width" value="100"  min="10" max="1000"> px<br>
+                 Height: <input type="range" id="image1Height" value="100"  min="10" max="1000"> px</td>
+             </tr>
+            <tr>
+                <td class="file"><br><br>.</td></tr>
+             <tr>
+            <tr> <td>  <button id="printButton" onclick="" class="button">Print Canvas</button></td></tr>
+            </table></div> 
+
+          <div class="tables"> <table>
+                <tr> <th class="th">Stamp/QR/image</th></tr>
+
+                <tr>
+                    <td class="stamp">  <input type="file" id="uploadImage2"> </td></tr>
+                  <tr> <td class="stamp">       Width: <input type="range" id="image2Width" value="100"  min="10" max="1000"> px<br>
+                        Height: <input type="range" id="image2Height" value="100"  min="10" max="1000"> px </td>
+                        <td  class="stamp"></td> </tr>
+                <tr><td class="stamp"> <div>
+                    <label for="xRange">Move Stamp on X-axis:</label>
+                    <input type="range" id="xRange" min="0" max="100" value="50">
+         </div>
+                       <div><label for="yRange">Move Stamp  on Y-axis:</label>
+                        <input type="range" id="yRange" min="0" max="100" value="50"></div> <br></td></tr>
+             
+            </table></div> 
+      
+   <!--<button id="downloadButton" onclick="promptScreenshot()">Download Canvas</button>-->
+
+</section>
+</section>
+</body>
+</html>
+<section>
+   
+</section>
+
+<style>
+    .tables{
+
+        float: left;
+    }
+
+    .section1{
+        width: 80%;
+        height: 10cm;
+        margin-left: 10%;
+        height: 18cm;
+margin-top: 4cm;
+    }
+    .section{
+        background-image: url(image/2.jpg);
+        margin-top: 40px;
+        height: 18cm;
+    background-repeat: no-repeat;
+    }
+    .button{
+        background-color:rgb(255, 239, 16);
+        font-weight: bold;
+width: 2cm; height: 1.5cm;
+
+    }
+   .th{
+        font-size: larger;
+        font-weight: bold;
+        color: red;
+    }
+.file{
+background-color: rgba(43, 198, 226, 0.904);
+}
+.stamp{
+
+background-color: rgba(243, 239, 5, 0.814);
+}
+    #canvasContainer {
+        position: relative;
+        width: 500px;
+        height: 700px;
+      
+        overflow: hidden;
+    }
+    .canvasImage {
+        position: absolute;
+    }
+</style>
+ 
+
+<script>
+   const image1 = document.getElementById('image1');
+   const image2 = document.getElementById('image2');
+   const uploadImage1 = document.getElementById('uploadImage1');
+   const uploadImage2 = document.getElementById('uploadImage2');
+   const image1Size = document.getElementById('image1Size');
+   const image2Size = document.getElementById('image2Size');
+ </script>
+
+
+
+<script>
+ uploadImage1.addEventListener('change', () => {
+      const file = uploadImage1.files[0];
+      if (file) {
+          image1.src = URL.createObjectURL(file);
+      }
+  });
+  
+  uploadImage2.addEventListener('change', () => {
+      const file = uploadImage2.files[0];
+      if (file) {
+          image2.src = URL.createObjectURL(file);
+      }
+  });
+  
+  image1Size.addEventListener('input', () => {
+      image1.style.width = `${image1Size.value}%`;
+  });
+  
+  image2Size.addEventListener('input', () => {
+      image2.style.width = `${image2Size.value}%`;
+  });
+</script>
+
+<script>
+
+  const image1Width = document.getElementById('image1Width');
+  const image1Height = document.getElementById('image1Height');
+  const image2Width = document.getElementById('image2Width');
+  const image2Height = document.getElementById('image2Height');
+  
+  // Rest of the drag functionality code remains unchanged
+  // ...
+
+  image1Width.addEventListener('input', updateImageDimensions);
+  image1Height.addEventListener('input', updateImageDimensions);
+  image2Width.addEventListener('input', updateImageDimensions);
+  image2Height.addEventListener('input', updateImageDimensions);
+
+  function updateImageDimensions() {
+      image1.style.width = `${image1Width.value}px`;
+      image1.style.height = `${image1Height.value}px`;
+      image2.style.width = `${image2Width.value}px`;
+      image2.style.height = `${image2Height.value}px`;
+  }
+</script>
+ <script>
+function promptScreenshot() {
+alert("To take a screenshot:\n\nOn Windows: Use the Print Screen key.\nOn Mac: Use Shift + Command + 4.\nOn Android: Use the Volume Down + Power buttons.\nOn iOS: Use the Side + Volume Up buttons.");
+}
+
+const printButton = document.getElementById('printButton');
+  printButton.addEventListener('click', () => {
+      // Trigger the browser's print functionality
+      window.print();
+  });
+</script>
+
+<script>
+const canvasContainer = document.getElementById('canvasContainer');
+const canvasWidth = canvasContainer.offsetWidth;
+const canvasHeight = canvasContainer.offsetHeight;
+
+// Initial position of image 2
+let image2X = canvasWidth / 2; // Center x-coordinate
+let image2Y = canvasHeight / 2; // Center y-coordinate
+
+const xRange = document.getElementById('xRange');
+const yRange = document.getElementById('yRange');
+
+xRange.addEventListener('input', moveImageX);
+yRange.addEventListener('input', moveImageY);
+
+function moveImageX() {
+  const rangeValue = parseInt(xRange.value);
+  const newX = (canvasWidth - parseInt(image2.style.width)) * (rangeValue / 100);
+  moveImage2(newX, image2Y);
+}
+
+function moveImageY() {
+  const rangeValue = parseInt(yRange.value);
+  const newY = (canvasHeight - parseInt(image2.style.height)) * (rangeValue / 100);
+  moveImage2(image2X, newY);
+}
+
+
+
+function moveImage2(x, y) {
+  // Existing code for moving image 2
+
+} 
+
+
+xRange.addEventListener('input', moveImageX);
+yRange.addEventListener('input', moveImageY);
+
+// Drag variables
+
+let offsetX = 0;
+let offsetY = 0;
+
+// Event listeners for touch and mouse events
+image2.addEventListener('mousedown', startDrag);
+image2.addEventListener('touchstart', startDrag, { passive: false });
+
+document.addEventListener('mousemove', moveImage);
+document.addEventListener('mouseup', stopDrag);
+document.addEventListener('touchmove', moveImage, { passive: false });
+document.addEventListener('touchend', stopDrag);
+
+function startDrag(event) {
+  event.preventDefault(); // Prevent touch scrolling
+  dragging = true;
+  dragImage = event.target;
+  dragImage.style.zIndex = '1000';
+
+  const rect = dragImage.getBoundingClientRect();
+  offsetX = event.clientX - rect.left;
+  offsetY = event.clientY - rect.top;
+}
+
+function moveImage(event) {
+  if (dragging) {
+      event.preventDefault(); // Prevent touch scrolling
+
+      let clientX, clientY;
+
+      if (event.type === 'mousemove') {
+          clientX = event.clientX;
+          clientY = event.clientY;
+      } else if (event.type === 'touchmove') {
+          clientX = event.touches[0].clientX;
+          clientY = event.touches[0].clientY;
+      }
+
+      const newX = clientX - offsetX;
+      const newY = clientY - offsetY;
+
+      // Move the image within canvas bounds
+      const minX = 0;
+      const maxX = canvasWidth - parseInt(image2.style.width);
+      const minY = 0;
+      const maxY = canvasHeight - parseInt(image2.style.height);
+      image2X = Math.max(minX, Math.min(maxX, newX));
+      image2Y = Math.max(minY, Math.min(maxY, newY));
+
+      // Update image position
+      image2.style.left = `${image2X}px`;
+      image2.style.top = `${image2Y}px`;
+  }
+}
+
+function stopDrag() {
+  dragging = false;
+  if (dragImage) {
+      dragImage.style.zIndex = 'auto';
+      dragImage = null;
+  }
+}
+
+
+// Update image position based on input ranges
+function updateImagePosition() {
+const xRange = document.getElementById('xRange');
+const yRange = document.getElementById('yRange');
+
+const xPercentage = parseInt(xRange.value);
+const yPercentage = parseInt(yRange.value);
+
+const image2Width = parseInt(image2.style.width);
+const image2Height = parseInt(image2.style.height);
+
+const maxX = canvasWidth - image2Width;
+const maxY = canvasHeight - image2Height;
+
+const newX = (maxX * xPercentage) / 100;
+const newY = (maxY * yPercentage) / 100;
+
+image2.style.left = `${newX}px`;
+image2.style.top = `${newY}px`;
+}
+
+// Add input event listeners to update image position
+
+xRange.addEventListener('input', updateImagePosition);
+yRange.addEventListener('input', updateImagePosition);
+</script>
+ 
