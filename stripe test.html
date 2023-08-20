@@ -6,10 +6,10 @@
   <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-  <button id="checkout-button">Checkoutyy</button>
+  <button id="checkout-button">Checkoutoo</button>
 
   <script>
-    const stripe = Stripe('sk_test_51Nf4DoHZyRUHAFJ0SNLOBHz18uwaUg4y6m1OQTpR5mVYm1RDd3RLy4mRmfyeGcixqm1Tle9B6x3p2YHTrE5m0cG200LRcrLhGx');
+    const stripe = Stripe('pk_test_51Nf4DoHZyRUHAFJ0XLgFOJSWlvIZjRHsmFNSNpAhtfm5o5xU1SSnbW7a3TxXUj6rzaCKio5o3TdZSAXUHmanznso00Cb20DfjZ');
 
     document.getElementById('checkout-button').addEventListener('click', async () => {
       const response = await fetch('/create-checkout-session', {
