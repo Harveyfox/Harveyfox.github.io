@@ -6,33 +6,15 @@
   <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-  <button id="checkout-button">Checkouto=</button>
+  <button id="checkout-button">Checkoutololo=</button>
 
-  <script>
-    const stripe = Stripe('pk_test_51Nf4DoHZyRUHAFJ0XLgFOJSWlvIZjRHsmFNSNpAhtfm5o5xU1SSnbW7a3TxXUj6rzaCKio5o3TdZSAXUHmanznso00Cb20DfjZ');
-
-    document.getElementById('checkout-button').addEventListener('click', async () => {
-      const response = await fetch('/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ items: [{ id: 'prod_OUF8CHA7t5qr8q', quantity: 1 }] })
-      });
-
-      const session = await response.json();
-
-      const result = await stripe.redirectToCheckout({
-        sessionId: session.id
-      });
-
-      if (result.error) {
-        console.error(result.error.message);
-      }
-    });
-  </script>
-</body>
-</html>
-
+  <script async
+  src="https://js.stripe.com/v3/buy-button.js">
 </script>
+
+<stripe-buy-button
+  buy-button-id="buy_btn_1NhHFMHZyRUHAFJ0UASIK1UM"
+  publishable-key="pk_test_51Nf4DoHZyRUHAFJ0XLgFOJSWlvIZjRHsmFNSNpAhtfm5o5xU1SSnbW7a3TxXUj6rzaCKio5o3TdZSAXUHmanznso00Cb20DfjZ"
+>
+</stripe-buy-button>
 
