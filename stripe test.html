@@ -1,8 +1,8 @@
 
+2222
 
-
----------------------------------------------------------------------------------------------------
-  <!-- Load Stripe.js on your website. -->
+</script>
+<!-- Load Stripe.js on your website. -->
 <script src="https://js.stripe.com/v3"></script>
 
 <!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
@@ -37,8 +37,8 @@
        * Instead use one of the strategies described in
        * https://stripe.com/docs/payments/checkout/fulfill-orders
        */
-      successUrl: 'https://example.com/success',
-      cancelUrl: 'https://example.com/canceled',
+      successUrl: window.location.protocol + 'www.Harveyfox.github.io/success',
+      cancelUrl: window.location.protocol + 'wwww.Harveyfox.github.io/success',
     })
     .then(function (result) {
       if (result.error) {
