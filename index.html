@@ -1,33 +1,33 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 
 <head>
-  <!-- Basic -->
+
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
+
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
 
   <title>Drool</title>
 
-  <!-- bootstrap core css -->
+
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
-  <!-- fonts style -->
+
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
-  <!-- Custom styles for this template -->
+
   <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
+
   <link href="css/responsive.css" rel="stylesheet" />
 </head>
 
 <body class="sub_page">
   <div class="hero_area ">
-    <!-- header section strats -->
+
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
@@ -66,10 +66,10 @@
         </nav>
       </div>
     </header>
-    <!-- end header section -->
+
   </div>
 
-  <!-- contact section -->
+
 
   <section class="contact_section layout_padding-top">
     <div class="container-fluid">
@@ -117,10 +117,10 @@
     </div>
   </section>
 
-  <!-- end contact section -->
 
 
-  <!-- info section -->
+
+
   <section class="info_section ">
     <div class="container">
       <div class="row">
@@ -207,17 +207,14 @@
     </div>
   </section>
 
-  <!-- end info_section -->
 
-
-  <!-- footer section -->
   <section class="container-fluid footer_section ">
     <p>
       &copy; 2019 All Rights Reserved. Design by
       <a href="https://html.design/">Free Html Templates</a>
     </p>
   </section>
-  <!-- end  footer section -->
+
 
 
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -234,4 +231,131 @@
     <a href="canvas biulding.html">bomba1</a>
       <a href="stampyourfiles.html">bomba2</a>
    <a href="stripe test.html">bomba3</a>
+</htm>--->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>P2P Communication with STUN/TURN</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #messages { margin: 20px 0; }
+        #messageInput { width: 300px; }
+    </style>
+</head>
+<body>
+    <h1>P2P Blockchain Simulation</h1>
+    <div id="messages"></div>
+    <input id="messageInput" type="text" placeholder="Type a message..." />
+    <button id="sendButton" disabled>Send</button>
+
+    <!-- Load Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Load SimplePeer -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-peer/simplepeer.min.js"></script>
+
+    <script>
+        const socket = io(); // Connect to the WebSocket server
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+
+        // Define STUN and TURN servers
+        const configuration = {
+            iceServers: [
+                // STUN servers
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' },
+                { urls: 'stun:stun2.l.google.com:19302' },
+                // TURN server (replace with your own TURN server details)
+                {
+                    urls: 'turn:your-turn-server.com:3478',
+                    username: 'your-username',
+                    credential: 'your-credential'
+                }
+            ]
+        };
+
+        // Initialize SimplePeer with the configuration
+        const peer = new SimplePeer({ initiator: location.hash === '#1', trickle: false, config: configuration });
+
+        // Display messages
+        function displayMessage(message) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messagesDiv.appendChild(messageElement);
+        }
+
+        // Handle signals sent from peers
+        peer.on('signal', data => {
+            console.log('SIGNAL SENT:', data);
+            socket.emit('signal', data); // Send the signaling data to the server
+        });
+
+        // Listen for signaling data from the server
+        socket.on('signal', data => {
+            console.log('SIGNAL RECEIVED:', data);
+            peer.signal(data); // Pass the signal data to the peer connection
+        });
+
+        // Handle the peer connection when established
+        peer.on('connect', () => {
+            console.log('Peer connected');
+            sendButton.disabled = false;
+        });
+
+        // Receive messages from the other peer
+        peer.on('data', data => {
+            const message = data.toString();
+            displayMessage(`Peer: ${message}`);
+        });
+
+        // Send messages to the peer
+        sendButton.onclick = () => {
+            const message = messageInput.value;
+            peer.send(message);
+            displayMessage(`You: ${message}`);
+            messageInput.value = '';
+        };
+    </script>
+</body>
 </html>
+<script>
+
+  // server.js
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+// Serve static files from the 'public' folder
+app.use(express.static('public'));
+
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    // Handle signaling data
+    socket.on('signal', (data) => {
+        console.log('Received signaling data', data);
+        // Send the signaling data to the other peer
+        socket.broadcast.emit('signal', data);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected');
+    });
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+</script>
+
+
+
+
